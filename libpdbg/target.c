@@ -20,6 +20,7 @@ static struct pdbg_target *get_class_target_addr(struct pdbg_target *target, con
 {
 	uint64_t old_addr = *addr;
 
+	printf("DEVENDER get_class_target_addr target.class %s name %s \n", target->class, name);
 	/* Check class */
 	while (strcmp(target->class, name)) {
 		if (target->translate) {
@@ -30,6 +31,7 @@ static struct pdbg_target *get_class_target_addr(struct pdbg_target *target, con
 		} else {
 			*addr += pdbg_target_address(target, NULL);
 		}
+		printf("DEVENDER get_class_target_addr while loop target.class %s name %s \n", target->class, name);
 
 		/* Keep walking the tree translating addresses */
 		target = get_parent(target, false);
@@ -40,6 +42,8 @@ static struct pdbg_target *get_class_target_addr(struct pdbg_target *target, con
 	}
 
 	pdbg_log(PDBG_DEBUG, "Translating target addr 0x%" PRIx64 " -> 0x%" PRIx64 " on %s\n",
+		 old_addr, *addr, pdbg_target_path(target));
+	printf("DEVENDER Translating target addr 0x%" PRIx64 " -> 0x%" PRIx64 " on %s\n",
 		 old_addr, *addr, pdbg_target_path(target));
 	return target;
 }
@@ -597,6 +601,7 @@ struct pdbg_target_class *get_target_class(struct pdbg_target *target)
 
 	/* Need to allocate a new class */
 	PR_DEBUG("Allocating %s target class\n", target->class);
+	printf("DEVENDER Allocating %s target class\n", target->class);
 	target_class = calloc(1, sizeof(*target_class));
 	assert(target_class);
 	target_class->name = strdup(target->class);

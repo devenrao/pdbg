@@ -75,7 +75,7 @@ const struct hw_unit_info *pdbg_hwunit_find_compatible(const char *compat_list,
 						       uint32_t len)
 {
 	const struct hw_unit_info *p;
-
+	printf("DEVENDER pdbg_hwunit_find_compatible %s\n", compat_list);
 	p = find_compatible(pdbg_get_backend(), compat_list, len);
 	if (!p)
 		p = find_compatible(PDBG_DEFAULT_BACKEND, compat_list, len);
